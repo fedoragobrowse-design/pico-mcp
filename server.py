@@ -30,10 +30,9 @@ from pathlib import Path
 import serial  # pyserial
 from fastmcp import FastMCP
 
-# §Host protocol ONE framing implementation shared with tools/host-cli
-_HOSTCLI = Path(__file__).resolve().parents[2] / "host-cli"
-if str(_HOSTCLI) not in sys.path:
-    sys.path.insert(0, str(_HOSTCLI))
+# §Host protocol ONE framing implementation — vendored (serial_protocol.py,
+# proto.py) so this repo is standalone; canonical source: tools/host-cli
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import serial_protocol as hostproto  # noqa: E402
 
 mcp = FastMCP("pico", instructions=(
